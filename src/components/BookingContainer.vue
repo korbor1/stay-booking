@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <booking-header :price="price" :opinions="opinions"></booking-header>
-    <booking-content></booking-content>
+    <booking-content :availableDates="availableDates"></booking-content>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="booking-content">
-        <date-picker :availableDates="availableDates"></date-picker>
+        <date-picker :availableDates="this.availableDates"></date-picker>
     </div>
 </template>
 

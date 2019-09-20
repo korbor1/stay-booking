@@ -34,6 +34,7 @@ export default {
   },
   computed: {
     //dynamic width of empty stars containers in case of max rate other than 5
+    //15 is width in pixels of single star
     emptyStarsWidth() {
       return `${15 * this.opinions.maxRate}px`;
     },
