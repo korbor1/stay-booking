@@ -19,13 +19,12 @@ export default {
 <style scoped>
     .weekdays-header {
         display: flex;
-        justify-content: space-between;
         font-size: 13px;
         color: #d3d3d3;
         text-align: center;
     }
 
     .weekdays-header div {
-        width: 35px;
+        width: 50px;
     }
 </style>

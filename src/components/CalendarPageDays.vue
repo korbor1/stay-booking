@@ -3,22 +3,27 @@
         <weekdays-header :headers="columns"></weekdays-header>
         <div class="week" v-for="(row, index) in rows" :key="row[index]">
             <day-in-calendar
-                v-for="(column, index) in columns"
-                :key="column[index]"
+                v-for="column in columns"
+                :key="row[column].date.getTime()"
                 :dayInfo="row[column]"
                 :checkIn="checkIn"
                 :checkOut="checkOut"
                 :nextNotAvailableDate="nextNotAvailableDate"
                 @onAddCheckIn="addCheckIn"
                 @onAddCheckOut="addCheckOut"
+                @onShowPopup="togglePopup"
             ></day-in-calendar>
         </div>
-        </div>
+        <transition name="fade">
+            <popup v-if="showDateRangeErrorPopup" @onHidePopup="togglePopup"></popup>
+        </transition>
+    </div>
 </template>
 
 <script>
 import WeekdaysHeader from "./WeekdaysHeader.vue";
 import DayInCalendar from "./DayInCalendar.vue";
+import Popup from "./Popup.vue";
 
 export default {
   name: 'CalendarPageDays',
@@ -29,6 +34,7 @@ export default {
       checkIn: null,
       checkOut: null,
       nextNotAvailableDate: null,
+      showDateRangeErrorPopup: false,
     }
   },
   props: {
@@ -87,15 +93,22 @@ export default {
     },
     addCheckOut(date) {
         this.checkOut = date;
+        this.putDatesInForm();
     },
-    findNextNotAvailableDate(availableDays, dateToCheck) {
-        let notAvailableDate = new Date(dateToCheck.getTime());
+    putDatesInForm() {
+        this.$emit('onPutDatesInForm', this.checkIn, this.checkOut);
+    },
+    findNextNotAvailableDate(availableDays, pickedDate) {   
+        let notAvailableDate = new Date(pickedDate.getTime());
 
         while(availableDays.some(date => new Date(date).getTime() === notAvailableDate.getTime())) {
             notAvailableDate.setDate(notAvailableDate.getDate() + 1);
         }
 
         return notAvailableDate;
+    },
+    togglePopup() {
+        this.showDateRangeErrorPopup = !this.showDateRangeErrorPopup;
     },
   },
   watch: {
@@ -109,12 +122,14 @@ export default {
   components: {
       WeekdaysHeader,
       DayInCalendar,
+      Popup,
   }
 }
 </script>
 
 <style scoped>
     .days-container {
+        position: relative;
         padding: 20px 25px;
         color: #dad8d8;
         font-weight: 600;
@@ -124,7 +139,8 @@ export default {
     .week {
         display: flex;
         justify-content: space-between;
-        padding: 13px 0;
+        margin: 13px 0;
+        background-color: #cafff3;
     }
 
     .day {
@@ -148,5 +164,12 @@ export default {
     .day.inActualMonth.available {
         border-color: #4fe2c0;
         color: #4fe2c0;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
     }
 </style>

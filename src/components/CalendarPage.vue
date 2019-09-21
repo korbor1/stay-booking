@@ -4,8 +4,14 @@
         :pickedMonth="this.month"
         :pickedYear="this.year"
         @onPreviousMonth="prevMonth"
-        @onNextMonth="nextMonth"></calendar-page-month-pick>
-      <calendar-page-days :pickedMonth="this.month" :pickedYear="this.year" :availableDates="this.availableDates"></calendar-page-days>
+        @onNextMonth="nextMonth"
+      ></calendar-page-month-pick>
+      <calendar-page-days
+        :pickedMonth="this.month"
+        :pickedYear="this.year"
+        :availableDates="this.availableDates"
+        @onPutDatesInForm="putDatesInFormEvent"
+      ></calendar-page-days>
     </div>
 </template>
 
@@ -28,6 +34,11 @@ export default {
     closeCalendarEvent() {
       this.$emit('onCloseCalendarPage');
     },
+    putDatesInFormEvent(checkIn, checkOut) {
+      if(checkIn !== null && checkOut !== null) {
+        this.$emit('onPutDatesInForm', checkIn, checkOut);
+      }
+    }, 
     prevMonth() {
       if(this.month === 0) {
         this.month = 11;
