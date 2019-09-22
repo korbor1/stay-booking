@@ -1,18 +1,21 @@
 <template>
-    <div class="calendar-page-container" tabindex="0" @focusout="closeCalendarEvent">
-      <calendar-page-month-pick
-        :pickedMonth="this.month"
-        :pickedYear="this.year"
-        @onPreviousMonth="prevMonth"
-        @onNextMonth="nextMonth"
-      ></calendar-page-month-pick>
-      <calendar-page-days
-        :pickedMonth="this.month"
-        :pickedYear="this.year"
-        :availableDates="this.availableDates"
-        @onPutDatesInForm="putDatesInFormEvent"
-      ></calendar-page-days>
-    </div>
+	<div class="calendar-page-container" tabindex="0" @focusout="closeCalendarEvent">
+
+		<calendar-page-month-pick
+			:pickedMonth="month"
+			:pickedYear="year"
+			@onPreviousMonth="prevMonth"
+			@onNextMonth="nextMonth"
+		></calendar-page-month-pick>
+
+		<calendar-page-days
+			:pickedMonth="month"
+			:pickedYear="year"
+			:availableDates="availableDates"
+			@onPutDatesInForm="putDatesInFormEvent"
+		></calendar-page-days>
+		
+	</div>
 </template>
 
 <script>
@@ -36,7 +39,7 @@ export default {
       this.$emit('onCloseCalendarPage');
     },
     putDatesInFormEvent(checkIn, checkOut) {
-      if(checkIn !== null && checkOut !== null) {
+      if(checkIn && checkOut) {
         this.$emit('onPutDatesInForm', checkIn, checkOut);
       }
     }, 
@@ -71,11 +74,12 @@ export default {
 
 <style scoped>
   .calendar-page-container {
+    z-index: 2;
     outline: 0;
     position: absolute;
     top: 80px;
     width: 100%;
-    height: 460px;
+    height: 400px;
     background-color: #fff;
   }
 </style>
