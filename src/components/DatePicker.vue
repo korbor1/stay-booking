@@ -2,6 +2,7 @@
     <form @submit="checkForm" method="get" action="/">
         <calendar-page
             v-show="showCalendarPage"
+            :isShow="showCalendarPage"
             @onCloseCalendarPage="closeCalendarPage"
             @onPutDatesInForm="putDatesInForm"
             :availableDates="this.availableDates"

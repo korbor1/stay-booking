@@ -1,6 +1,6 @@
 <template>
     <div class="weekdays-header">
-        <div v-for="day in this.headers"
+        <div v-for="day in headers"
             :key="day">
             {{ day }}
         </div>

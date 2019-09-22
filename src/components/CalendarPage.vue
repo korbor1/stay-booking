@@ -29,6 +29,7 @@ export default {
   },
   props: {
     availableDates: Array,
+    isShow: Boolean,
   },
   methods: {
     closeCalendarEvent() {
@@ -56,8 +57,10 @@ export default {
       }
     }
   },
-  mounted() {
-    this.$el.focus();
+  watch: {
+    isShow() {
+      this.$el.focus();
+    }
   },
   components: {
     CalendarPageMonthPick,

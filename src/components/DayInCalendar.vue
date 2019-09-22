@@ -24,9 +24,9 @@ export default {
   methods: {
       addDate() {
           let pickedDayInMs = this.dayInfo.date.getTime();
-          let checkInInMs = this.checkIn === null ? null : this.checkIn.getTime();
-          let checkOutInMs = this.checkOut === null ? null : this.checkOut.getTime();
-          let nextNotAvailableDate = this.nextNotAvailableDate === null ? null : this.nextNotAvailableDate.getTime();
+          let checkInInMs = this.checkIn && this.checkIn.getTime();
+          let checkOutInMs = this.checkOut && this.checkOut.getTime();
+          let nextNotAvailableDate = this.nextNotAvailableDate && this.nextNotAvailableDate.getTime();
 
           if(this.dayInfo.isAvailable) {
               if(checkInInMs === null || checkOutInMs === null && pickedDayInMs < checkInInMs) {
@@ -43,8 +43,8 @@ export default {
       },
       isChecked() {
           let pickedDayInMs = this.dayInfo.date.getTime();
-          let checkInInMs = this.checkIn === null ? null : this.checkIn.getTime();
-          let checkOutInMs = this.checkOut === null ? null : this.checkOut.getTime();
+          let checkInInMs = this.checkIn && this.checkIn.getTime();
+          let checkOutInMs = this.checkOut && this.checkOut.getTime();
 
           if(pickedDayInMs === checkInInMs || pickedDayInMs === checkOutInMs) {
               return true;
@@ -55,9 +55,9 @@ export default {
       },
       isInRange() {
           let classNames = ["first-in-range", "last-in-range", "in-range"];
-          let checkInInMs = this.checkIn === null ? null : this.checkIn.getTime();
-          let checkOutInMs = this.checkOut === null ? null : this.checkOut.getTime();
-          let pickedDayInMs = this.dayInfo.date.getTime();
+          let checkInInMs = this.checkIn && this.checkIn.getTime();
+          let checkOutInMs = this.checkOut && this.checkOut.getTime();
+          let pickedDayInMs = this.dayInfo.date && this.dayInfo.date.getTime();
 
           if(checkInInMs !== null && checkOutInMs !== null ) {
 
